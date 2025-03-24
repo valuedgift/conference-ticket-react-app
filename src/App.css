@@ -1,39 +1,308 @@
-
-/* .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+body {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  background-color: black;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  height: 100vh;
+  margin: 0;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.container {
+  background: black;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 10px gray;
+  border: solid 1px gray;
+  background: linear-gradient(135deg, #08252B 20%, black 90%);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
+.header-3 {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+}
+
+ .header-3 h3 {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.header-3 h4 {
+  font-size: 12px;
+  margin-bottom: 0;
+}
+
+.progressive-barr {
+  position: relative;
+  width: 100%;
+  height: 2px;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: #ddd;
+  border-radius: 4px;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.progressive-barr-absolute {
+  position: absolute;
+  width: 70%;
+  height: 2px;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: blue;
+  border-radius: 4px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  border: solid 1px gray;
+  border-radius: 15px;
+  padding: 15px;
+}
+
+.img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-top: 10px;
+}
+
+label {
+  margin: 10px 0;
+  font-weight: bold;
+  text-align: left;
+}
+
+.bar {
+  width: 100%;
+  height: 1px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 20px;
+  background-color: gray;
+  border-radius: 4px;
+}
+
+input {
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+}
+
+input:focus {
+  outline: 1px solid #0056b3
+}
+
+input:hover {
+  border-color: #007bff;
+  background-color: white;
+  color: black;
+}
+
+.error-text {
+  color: red;
+}
+
+button {
+  background: blue;
+  color: white;
+  padding: 10px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #ddd;
+  color: black;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+.cancel-next-container {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.cancel-next-container .cancel, .next {
+  border: solid 1px gray;
+  border-radius: 8px;
+  padding: 5px 20px 5px 20px;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  width: 100%;
+  font-size: 15px;
+  text-wrap: nowrap;
+}
+
+.cancel {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.cancel:hover {
+  background-color:#ddd;
+  color: black;
+  cursor: pointer;
+}
+
+.cancel-next-container .next {
+  background-color: #08252B;
+}
+
+.next:hover {
+  background-color:#ddd;
+  color: black;
+  cursor: pointer;
+}
+
+.ready-container {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+}
+
+.ready {
+  margin-bottom: 5px;
+}
+
+.three {
+  margin-bottom: 2px;
+  font-size: 12px;
+} 
+
+.progress-barr {
+  position: relative;
+  width: 100%;
+  height: 2px;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: #ddd;
+  border-radius: 5px;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.progress-barr-absolute {
+  position: absolute;
+  width: 90%;
+  height: 2px;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: blue;
+  border-radius: 5px;
+}
+
+.ticket-title {
+  font-size: 20px;
+}
+
+.ticket-container {
+  padding: 10px;
+  background: #fff;
+  border: solid 1px gray;
+  margin-top: 10px;
+  text-align: center;
+  border-radius: 8px;
+  background: black;
+}
+
+.aptiw-section {
+  border: solid 1px gray;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.aptiw-section p {
+  font-size: 12px;
+}
+
+.ticket-sample {
+  display: flex;
+  flex-direction: column;
+  border: solid 1px gray;
+  padding: 10px;
+  margin-top: 15px;
+  border-radius: 8px;
+}
+
+.name-container p {
+  color: rgb(185, 111, 255);
+}
+
+.email-container p {
+  color: rgb(185, 111, 255);
+}
+
+.ticket-type-container p {
+  color: rgb(185, 111, 255);
+}
+
+.ticket-counter-container p {
+  color: rgb(185, 111, 255);
+}
+
+.email-name-container {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+}
+
+.email-container p, h5 {
+  margin-bottom: 0;
+}
+
+.barr {
+  width: 100%;
+  height: 1px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 20px;
+  background-color: gray;
+}
+
+.vip-number-container {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+}
+
+.second-request {
+  margin: 10px 0;
+  font-weight: bold;
+  text-align: left;
+}
+
+textarea {
+  background-color: black;
+  color: white;
+}
+
+textarea:hover {
+  background-color: white;
+  color: black;
+}
