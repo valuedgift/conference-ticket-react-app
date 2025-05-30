@@ -1,6 +1,12 @@
 import ReactDOM from "react-dom/client";
+import Barcode from "react-barcode";
+import html2canvas from "html2canvas";
 import { MdArrowRightAlt } from "react-icons/md";
 import { SiCloudinary } from "react-icons/si";
+import { RiArrowDropDownLine } from "react-icons/ri";
+import { PiTicketDuotone } from "react-icons/pi";
+import backgroundImage from './images/background-image.png';
+
 import "./index.css";
 import "./App.css";
 
@@ -35,43 +41,48 @@ const TicketSelection = ({ onNextStep, onCancelStep, setTicketData }) => {
 
   return (
     <div className="main-section">
-      <div className="main-header">
-        <div className="tics-container">
-          <div className="tics-logo"></div>
-          <p>ticz</p>
+      <nav className="main-header">
+        <ul className="header-list">
+          <li className="tics-container">
+            <a href="/" className="tics-logo-link">
+              <PiTicketDuotone className="tics-logo" />
+              <span>ticz</span>
+            </a>
+          </li>
+
+          <li className="header-events-container">
+            <a href="/events" className="nav-link">Events</a>
+            <a href="/my-tickets" className="nav-link">My Tickets</a>
+            <a href="/about" className="nav-link">About Project</a>
+          </li>
+
+          <li className="header-ticket-container">
+            <a href="/my-tickets" className="icon-button">
+              My Tickets <MdArrowRightAlt className="arrow-icon" />
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div className="container-main">
+        <header>
+          <h3>Ticket Selection</h3>
+          <h4>Step 1/3</h4>
+        </header>
+        <div className="progressive-bar">
+          <div className="progressive-bar-absolute"></div>
         </div>
-        <div className="header-events-container">
-          <a>
-            <p className="first-child">Events</p>
-            <p className="second-child">My Tickets</p>
-            <p className="third-child">About Project</p>
-          </a>
-        </div>
-        <div className="header-ticket-container">
-          <button className="icon-button">My Tickets
-            <MdArrowRightAlt className="arrow-icon" />
-          </button>
-        </div>
-      </div>
-      <div>
-        <div className="container-main">
-          <header>
-            <h3>Ticket Selection</h3>
-            <h4>Step 1/3</h4>
-          </header>
-          <div className="progressive-bar">
-            <div className="progressive-bar-absolute"></div>
+        <div className="main-card">
+          <div className="caption-card">
+            <h1>Aptiw Fest "25</h1>
+            <p>Join us for an unforgettable experience at Aptiw</p>
+            <p>Secure your spot now.</p>
+            <p>#9 GRA Phase 2 || March 27, 2025 || 7:00 PM</p>
           </div>
-          <div className="main-card">
-            <div className="caption-card">
-              <h1>Aptiw Fest "25</h1>
-              <p>Join us for an unforgettable experience at Aptiw</p>
-              <p>Secure your spot now.</p>
-              <p>#9 GRA Phase 2 || March 27, 2025 || 7:00 PM</p>
-            </div>
 
-            <div className="bar-horizontal"></div>
+          <div className="bar-horizontal"></div>
 
+          <div className="select-ticket-section">
             <h4 className="select-ticket">Select Ticket Type</h4>
             <div className="ticket-type-cards-container">
               <div
@@ -79,48 +90,135 @@ const TicketSelection = ({ onNextStep, onCancelStep, setTicketData }) => {
                 onClick={() => handleTicketSelect("regular")}
               >
                 <p className="bold">Free</p>
-                <p className="small-text">REGULAR ACCESS</p>
-                <p className="small-text small-text-button">20/52</p>
+                <div className="small-text-section">
+                  <p className="small-text">REGULAR ACCESS</p>
+                  <p className="small-text small-text-button">20/52</p>
+                </div>
               </div>
               <div
                 className={`card ${selectedTicket === "vip" ? "active" : ""}`}
                 onClick={() => handleTicketSelect("vip")}
               >
                 <p className="bold">$150</p>
-                <p className="small-text">VIP ACCESS</p>
-                <p className="small-text small-text-button">20/52</p>
+                <div className="small-text-section">
+                  <p className="small-text">VIP ACCESS</p>
+                  <p className="small-text small-text-button">20/52</p>
+                </div>
               </div>
               <div
                 className={`card ${selectedTicket === "vvip" ? "active" : ""}`}
                 onClick={() => handleTicketSelect("vvip")}
               >
                 <p className="bold">$300</p>
-                <p className="small-text">VVIP ACCESS</p>
-                <p className="small-text small-text-button">10/25</p>
+                <div className="small-text-section">
+                  <p className="small-text">VVIP ACCESS</p>
+                  <p className="small-text small-text-button">10/25</p>
+                </div>
               </div>
             </div>
+          </div>
 
+          <div className="dropdown">
             <h4 className="num-tickets">Number of Tickets</h4>
-            <div className="dropdown">
+            <div className="select-wrapper">
               <select onChange={(e) => handleTicketCount(e.target.value)} value={ticketCount}>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
               </select>
+              <RiArrowDropDownLine className="select-icon" />
             </div>
+          </div>
 
-            <div className="cancel-next-container">
-              <button className="cancel" onClick={handleCancel}>Cancel</button>
-              <button className={`next ${selectedTicket ? "active-next" : ""}`} onClick={handleNext}>
-                Next
-              </button>
-            </div>
+          <div className="cancel-next-container">
+            <button className="cancel" onClick={handleCancel}>Cancel</button>
+            <button className={`next ${selectedTicket ? "active-next" : ""}`} onClick={handleNext}>
+              Next
+            </button>
           </div>
         </div>
       </div>
     </div>
   );
 };
+
+function Ticket({ name, email, ticketData, img }) {
+  const barcodeValue = `${name}-${email}-${ticketData.ticketType}`;
+
+  return (
+    <div className="ticket-wrapper" id="ticket-to-download">
+      <img src={backgroundImage} alt="Ticket-Background" className="ticket-background" />
+      <div className="aptiw-section">
+        <div className="aptiw-fest-container">
+          <h3>Aptiw Fest '25</h3>
+          <p>04 Aggrey Road, Rivers-State, Nigeria</p>
+          <p>March 15, 2025 | 7:00 PM</p>
+        </div>
+        <div className="final-img-container">
+          <img
+            src={img}
+            alt="img"
+            style={{
+              width: "120px",
+              height: "110px",
+              objectFit: "cover",
+              borderRadius: "10px",
+              borderWidth: "4px",
+              borderStyle: "solid",
+              borderColor: "#24A0B580",
+            }}
+          />
+        </div>
+        <div className="ticket-sample">
+          <div className="email-name-container">
+            <div className="name-container">
+              <p className="enter-name">Enter your name</p>
+              <h5 className="ticket-name">{name}</h5>
+            </div>
+            <div className="email-container">
+              <p className="enter-email">Enter your email</p>
+              <h5 className="ticket-email">{email}</h5>
+            </div>
+          </div>
+          <div className="vip-number-container">
+            <div className="ticket-type-container">
+              <p className="ticket-type">Ticket Type:</p>
+              <h5 className="ticket-vip">{ticketData.ticketType.toUpperCase()}</h5>
+            </div>
+            <div className="ticket-counter-container">
+              <p className="ticket-for">Ticket for:</p>
+              <h5 className="ticket-count">{ticketData.ticketCount}</h5>
+            </div>
+          </div>
+          <div className="special-request-container">
+            <label className="special-request">Special Request?</label>
+            <p className="request">
+              Nil? Or the user's sad story they write in there
+              <br />
+              gets this whole space, Max of three rows
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Barcode */}
+      <div className="barcode-container">
+        <Barcode
+          value={barcodeValue}
+          format="CODE128"
+          width={0.48}
+          height={63}
+          displayValue={true}
+          font="monospace"
+          fontSize={10}
+          background="transparent"
+          lineColor="#24A0B5"
+        />
+      </div>
+    </div>
+  );
+}
+
 
 function Step2({ onBackStep, ticketData }) {
   const [img, setImg] = useState("");
@@ -200,29 +298,48 @@ function Step2({ onBackStep, ticketData }) {
     }
   };
 
+  const handleDownload = () => {
+    const ticketElement = document.getElementById("ticket-to-download");
+    if (!ticketElement) return;
+
+    html2canvas(ticketElement).then((canvas) => {
+      const link = document.createElement("a");
+      link.download = "ticket.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    });
+  };
+
+
   if (ticketGenerated) {
     return (
       <div className="main-section">
-        <div className="main-header">
-          <div className="tics-container">
-            {/* <div className="tics-logo"></div> */}
-            <p>tics</p>
-          </div>
-          <div className="header-events-container">
-            <a>
-              <p className="first-child">Events</p>
-              <p className="second-child">My Tickets</p>
-              <p className="third-child">About Project</p>
-            </a>
-          </div>
-          <div className="header-ticket-container">
-            <button className="icon-button">My Tickets
-              <MdArrowRightAlt className="arrow-icon" />
-            </button>
-          </div>
-        </div>
-        <div>
-          <div className="ticket-container">
+
+        <nav className="main-header">
+          <ul className="header-list">
+            <li className="tics-container">
+              <a href="/" className="tics-logo-link">
+                <PiTicketDuotone className="tics-logo" />
+                <span>ticz</span>
+              </a>
+            </li>
+
+            <li className="header-events-container">
+              <a href="/events" className="nav-link">Events</a>
+              <a href="/my-tickets" className="nav-link">My Tickets</a>
+              <a href="/about" className="nav-link">About Project</a>
+            </li>
+
+            <li className="header-ticket-container">
+              <a href="/my-tickets" className="icon-button">
+                My Tickets <MdArrowRightAlt className="arrow-icon" />
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <div className="final-ticket-section">
+          <div className="ready-bar-section">
             <div className='ready-container'>
               <h3 className="ready">Ready</h3>
               <h4 className="three">3/3</h4>
@@ -230,65 +347,39 @@ function Step2({ onBackStep, ticketData }) {
             <div className="progress-barr">
               <div className="progress-barr-absolute"></div>
             </div>
-            <h2 className="ticket-title">Your Ticket is Booked!</h2>
-            <p className="check-email-copy">Check your email for a copy or you can <span style={{ fontWeight: "bold", cursor: "pointer" }}>download</span></p>
+          </div>
+          <div className="ticket-container-section">
 
-            <div className='aptiw-section'>
-              <div className="aptiw-fest-container">
-                <h3>Aptiw Fest "25</h3>
-                <p>04 Aggrey Road, Rivers-State, Nigeria</p>
-                <p>March 15, 2025 | 7:00 PM</p>
-              </div>
-              <div className="final-img-container">
-                <img src={img} alt="img" style={{ width: "120px", height: "110px", objectFit: "cover", borderRadius: "10px", borderWidth: "4px", borderStyle: "solid", borderColor: "#24A0B580" }} />
-              </div>
-              <div className='ticket-sample'>
-                <div className='email-name-container'>
-                  <div className='name-container'>
-                    <p className="enter-name">Enter your name</p>
-                    <h5 className="ticket-name">{name}</h5>
-                  </div>
-                  <div className='email-container'>
-                    <p className="enter-email">Enter your email</p>
-                    <h5 className="ticket-email">{email}</h5>
-                  </div>
-                </div>
-                <div className='vip-number-container'>
-                  <div className='ticket-type-container'>
-                    <p className="ticket-type">Ticket Type:</p>
-                    <h5 className="ticket-vip">{ticketData.ticketType.toUpperCase()}</h5>
-                  </div>
-                  <div className='ticket-counter-container'>
-                    <p className="ticket-for">Ticket for:</p>
-                    <h5 className="ticket-count">{ticketData.ticketCount}</h5>
-                  </div>
-                </div>
-                <div className="special-request-container">
-                  <label className='special-request'>Special Request?</label>
-                  <p className="request">Nil? Or the user's sad story they write in there<br></br> gets this whole space, Max of three rows</p>
-                </div>
-              </div>
+            <div className="ticket-title-section">
+              <h2 className="ticket-title">Your Ticket is Booked!</h2>
+              <a href="" className="check-email-copy">Check your email for a copy or you can <span style={{ fontWeight: "bold", cursor: "pointer" }} onClick={handleDownload}>download</span></a>
             </div>
-            <div className="ticket-actions">
-              <button className="back-button" onClick={() => window.location.reload()}>
-                Book Another Ticket
-              </button>
-              <button
-                className="download-button"
-                onClick={() => {
-                  const ticketElement = document.querySelector(".aptiw-section");
-                  if (ticketElement) {
-                    const link = document.createElement("a");
-                    link.href = ticketElement.toDataURL
-                      ? ticketElement.toDataURL("image/png")
-                      : ticketElement.outerHTML;
-                    link.download = "ticket.png";
-                    link.click();
-                  }
-                }}
-              >
-                Download Ticket
-              </button>
+
+            <div className="ticket-container">
+
+              <Ticket name={name} email={email} ticketData={ticketData} img={img} />
+
+              <div className="ticket-actions">
+                <button className="back-button" onClick={() => window.location.reload()}>
+                  Book Another Ticket
+                </button>
+                <button
+                  className="download-button"
+                  onClick={() => {
+                    const ticketElement = document.querySelector(".aptiw-section");
+                    if (ticketElement) {
+                      const link = document.createElement("a");
+                      link.href = ticketElement.toDataURL
+                        ? ticketElement.toDataURL("image/png")
+                        : ticketElement.outerHTML;
+                      link.download = "ticket.png";
+                      link.click();
+                    }
+                  }}
+                >
+                  Download Ticket
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -298,24 +389,29 @@ function Step2({ onBackStep, ticketData }) {
 
   return (
     <div className="main-section">
-      <div className="main-header">
-        <div className="tics-container">
-          <div className="tics-logo"></div>
-          <p>tics</p>
-        </div>
-        <div className="header-events-container">
-          <a>
-            <p className="first-child">Events</p>
-            <p className="second-child">My Tickets</p>
-            <p className="third-child">About Project</p>
-          </a>
-        </div>
-        <div className="header-ticket-container">
-          <button className="icon-button">My Tickets
-            <MdArrowRightAlt className="arrow-icon" />
-          </button>
-        </div>
-      </div>
+      <nav className="main-header">
+        <ul className="header-list">
+          <li className="tics-container">
+            <a href="/" className="tics-logo-link">
+              <PiTicketDuotone className="tics-logo" />
+              <span>ticz</span>
+            </a>
+          </li>
+
+          <li className="header-events-container">
+            <a href="/events" className="nav-link">Events</a>
+            <a href="/my-tickets" className="nav-link">My Tickets</a>
+            <a href="/about" className="nav-link">About Project</a>
+          </li>
+
+          <li className="header-ticket-container">
+            <a href="/my-tickets" className="icon-button">
+              My Tickets <MdArrowRightAlt className="arrow-icon" />
+            </a>
+          </li>
+        </ul>
+      </nav>
+
       <div>
         <div className="container">
           <header className="header-3">
