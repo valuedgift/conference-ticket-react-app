@@ -73,46 +73,53 @@ const TicketSelection = ({ onNextStep, onCancelStep, setTicketData }) => {
           <div className="progressive-bar-absolute"></div>
         </div>
         <div className="main-card">
-          <div className="caption-card">
-            <h1>Aptiw Fest "25</h1>
-            <p>Join us for an unforgettable experience at Aptiw</p>
-            <p>Secure your spot now.</p>
-            <p>#9 GRA Phase 2 || March 27, 2025 || 7:00 PM</p>
+          <div className="caption-card-section">
+            <div className="caption-card">
+              <h1>Aptiw Fest "25</h1>
+              <p>Join us for an unforgettable experience at <br></br>Aptiw Fest. Secure your spot now.</p>
+            </div>
+            <div className="text-deets-section">
+              <p>#9 GRA Phase 2</p>
+              <p>||</p>
+              <p>March 27, 2025 || 7:00 PM</p>
+            </div>
           </div>
 
           <div className="bar-horizontal"></div>
 
           <div className="select-ticket-section">
             <h4 className="select-ticket">Select Ticket Type</h4>
-            <div className="ticket-type-cards-container">
-              <div
-                className={`card ${selectedTicket === "regular" ? "active" : ""}`}
-                onClick={() => handleTicketSelect("regular")}
-              >
-                <p className="bold">Free</p>
-                <div className="small-text-section">
-                  <p className="small-text">REGULAR ACCESS</p>
-                  <p className="small-text small-text-button">20/52</p>
+            <div className="ticket-type-cards-container-main">
+              <div className="ticket-type-cards-container">
+                <div
+                  className={`card ${selectedTicket === "regular" ? "active" : ""}`}
+                  onClick={() => handleTicketSelect("regular")}
+                >
+                  <p className="bold">Free</p>
+                  <div className="small-text-section">
+                    <p className="small-text">REGULAR ACCESS</p>
+                    <p className="small-text small-text-button">20/52</p>
+                  </div>
                 </div>
-              </div>
-              <div
-                className={`card ${selectedTicket === "vip" ? "active" : ""}`}
-                onClick={() => handleTicketSelect("vip")}
-              >
-                <p className="bold">$150</p>
-                <div className="small-text-section">
-                  <p className="small-text">VIP ACCESS</p>
-                  <p className="small-text small-text-button">20/52</p>
+                <div
+                  className={`card ${selectedTicket === "vip" ? "active" : ""}`}
+                  onClick={() => handleTicketSelect("vip")}
+                >
+                  <p className="bold">$150</p>
+                  <div className="small-text-section">
+                    <p className="small-text">VIP ACCESS</p>
+                    <p className="small-text small-text-button">20/52</p>
+                  </div>
                 </div>
-              </div>
-              <div
-                className={`card ${selectedTicket === "vvip" ? "active" : ""}`}
-                onClick={() => handleTicketSelect("vvip")}
-              >
-                <p className="bold">$300</p>
-                <div className="small-text-section">
-                  <p className="small-text">VVIP ACCESS</p>
-                  <p className="small-text small-text-button">10/25</p>
+                <div
+                  className={`card ${selectedTicket === "vvip" ? "active" : ""}`}
+                  onClick={() => handleTicketSelect("vvip")}
+                >
+                  <p className="bold">$300</p>
+                  <div className="small-text-section">
+                    <p className="small-text">VVIP ACCESS</p>
+                    <p className="small-text small-text-button">10/25</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -138,6 +145,71 @@ const TicketSelection = ({ onNextStep, onCancelStep, setTicketData }) => {
           </div>
         </div>
       </div>
+    </div>
+  );
+};
+
+const DownloadLink = ({ handleDownload }) => {
+  const [isDefaultText, setIsDefaultText] = useState(true);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 640) {
+        setIsDefaultText(false);
+      } else {
+        setIsDefaultText(true);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return (
+    <a href="#" className="check-email-copy">
+      {isDefaultText ? (
+        <>
+          Check your email for a copy or you can{" "}
+          <span
+            style={{ fontWeight: "bold", cursor: "pointer" }}
+            onClick={handleDownload}
+          >
+            download
+          </span>
+        </>
+      ) : (
+        "You can download or Check your email for a copy"
+      )}
+    </a>
+  );
+};
+
+const SpecialRequestContainer = () => {
+  const [labelText, setLabelText] = useState("Special Request");
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 640) {
+        setLabelText("Special Request?");
+      } else {
+        setLabelText("About the Project");
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  return (
+    <div className="input-container">
+      <label className="label">{labelText}</label>
+      <textarea className="textarea"></textarea>
     </div>
   );
 };
@@ -206,11 +278,11 @@ function Ticket({ name, email, ticketData, img }) {
         <Barcode
           value={barcodeValue}
           format="CODE128"
-          width={0.48}
+          width={0.55}
           height={63}
           displayValue={true}
           font="monospace"
-          fontSize={10}
+          fontSize={11}
           background="transparent"
           lineColor="#24A0B5"
         />
@@ -352,7 +424,7 @@ function Step2({ onBackStep, ticketData }) {
 
             <div className="ticket-title-section">
               <h2 className="ticket-title">Your Ticket is Booked!</h2>
-              <a href="" className="check-email-copy">Check your email for a copy or you can <span style={{ fontWeight: "bold", cursor: "pointer" }} onClick={handleDownload}>download</span></a>
+              <DownloadLink handleDownload={handleDownload} />
             </div>
 
             <div className="ticket-container">
@@ -366,20 +438,26 @@ function Step2({ onBackStep, ticketData }) {
                 <button
                   className="download-button"
                   onClick={() => {
-                    const ticketElement = document.querySelector(".aptiw-section");
+                    const ticketElement = document.getElementById("ticket-to-download");
                     if (ticketElement) {
-                      const link = document.createElement("a");
-                      link.href = ticketElement.toDataURL
-                        ? ticketElement.toDataURL("image/png")
-                        : ticketElement.outerHTML;
-                      link.download = "ticket.png";
-                      link.click();
+                      html2canvas(ticketElement, {
+                        useCORS: true,
+                        allowTaint: true,
+                        backgroundColor: null,
+                        scale: 2,
+                      }).then((canvas) => {
+                        const link = document.createElement("a");
+                        link.href = canvas.toDataURL("image/png");
+                        link.download = "ticket.png";
+                        link.click();
+                      });
                     }
                   }}
                 >
                   Download Ticket
                 </button>
               </div>
+
             </div>
           </div>
         </div>
@@ -452,31 +530,34 @@ function Step2({ onBackStep, ticketData }) {
             {/* Form Fields */}
             <div className="bar"></div>
 
-            <label className="label">Full Name</label>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className={errors.name ? "input error" : "input"}
-              aria-describedby="nameError"
-            />
+            <div className="input-container">
+              <label className="label">Full Name</label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className={errors.name ? "input error" : "input"}
+                aria-describedby="nameError"
+              />
+            </div>
             {errors.name && <span id="nameError" className="error-text">{errors.name}</span>}
 
-            <label className="label">Email Address</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className={errors.email ? "input error" : "input"}
-              aria-describedby="emailError"
-            />
+            <div className="input-container">
+              <label className="label">Email Address</label>
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className={errors.email ? "input error" : "input"}
+                aria-describedby="emailError"
+              />
+            </div>
             {errors.email && <span id="emailError" className="error-text">{errors.email}</span>}
 
-            <label className="label">Special Request</label>
-            <textarea className="textarea"></textarea>
+            <SpecialRequestContainer />
 
             {/* Navigation Buttons */}
-            <div className="cancel-next-container">
+            <div className="cancel-next-container cancel-nxt-contnr">
               <button type="button" className="cancel" onClick={onBackStep}>Back</button>
 
               {ticketData.ticketType === "regular" ? (
