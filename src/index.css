@@ -85,8 +85,9 @@
   color: #FAFAFA;
 }
 
-.header-events-container .nav-link:hover {
-  color: #FAFAFA;
+.header-events-container .nav-link:nth-child(2):hover,
+.header-events-container .nav-link:nth-child(3):hover{
+  color: #24A0B5;
 }
 
 .header-ticket-container {

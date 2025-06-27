@@ -678,6 +678,7 @@ button:hover {
   position: relative;
   padding: 2rem 1.3125rem 2rem 1.3125rem;
   margin: 20px auto 20px auto;
+  /* overflow: hidden; */
 }
 
 .ticket-background {
@@ -705,15 +706,14 @@ button:hover {
   padding: 14px;
 }
 
-@media (max-width: 640px) {
+/* @media (max-width: 640px) {
   .aptiw-section {
-    /* width: 260px; */
     width: 260px;
     padding: 8px;
     top: 65px;
     left: -5px;
   }
-}
+} */
 
 .aptiw-fest-container {
   /* width: 175px; */
@@ -797,6 +797,10 @@ button:hover {
   border-right: solid 1px #12464E;
   margin-top: 5px;
   padding: 8px;
+  /* word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-width: 100%; */
 }
 
 .name-container p {
@@ -824,6 +828,11 @@ h5 {
   border-bottom: solid 1px #12464E;
   margin-top: 5px;
   padding: 8px;
+  overflow: hidden;
+  /* word-wrap: break-word; */
+  /* overflow-wrap: break-word; */
+  /* white-space: normal;
+  max-width: 100%; */
 }
 
 .email-container p,
@@ -860,6 +869,10 @@ h5 {
   border-bottom: solid 1px #12464E;
   border-right: solid 1px #12464E;
   padding: 8px;
+  /* word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-width: 100%; */
 }
 
 .ticket-type-container p,
@@ -885,6 +898,10 @@ h5 {
   flex: 1;
   border-bottom: solid 1px #12464E;
   padding: 8px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-width: 100%;
 }
 
 .ticket-counter-container p,
